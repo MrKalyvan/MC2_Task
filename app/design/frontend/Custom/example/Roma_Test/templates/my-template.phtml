@@ -1,0 +1,57 @@
+<?php
+
+use Roma\Test\Api\Data\CarCustomerInterface;
+use Roma\Test\Block\CarCustomers;
+use Roma\Test\Model\CarCustomerModel;
+use Roma\Test\ViewModel\ExtraInfo;
+
+/** @var CarCustomers $block */
+$blockName = $block->getNameInLayout();
+$string = $block->getData('custom_string');
+$array = $block->getData('custom_array');
+
+/** @var ExtraInfo $viewModel */
+$viewModel = $block->getData('our_view_model');
+
+/** @var CarCustomerInterface[] $carCustomers */
+$carCustomers = $block->getCarCustomers();
+?>
+
+<h1 class="my-block"><?= __('My Custom Information from theme') ?>: my-template.phtml!</h1>
+<h2 class="my-block"><?= __('My Custom String is') ?>: "<?= __($string) ?>"</h2>
+<h3 class="my-block"><?= __('My Custom Array %1 is', 'first_key') ?>: "<?= __($array['array_key_one']) ?>"</h3>
+<h3 class="my-block"><?= __('My Custom Array %1 is', 'second_key') ?>: "<?= __($array['array_key_two']) ?>"</h3>
+<?php if ($viewModel && $viewModel->getCurrentDate()): ?>
+    <h3 class="my-block"><?= $viewModel->getCurrentDate() ?></h3>
+<?php endif; ?>
+<div class="customers container">
+    <?php if (!empty($carCustomers)): ?>
+        <?php foreach ($carCustomers as $carCustomer): ?>
+            <?php /** @var CarCustomerModel $carCustomer */ ?>
+            <div class="car-customer-id-<?= $carCustomer->getId() ?>">
+                <h4 class="entity-id"> <?= __('EntityId') ?>: <?= $carCustomer->getId() ?></h4>
+                <h3 class="email"><?= __('Email') ?>: <?= $carCustomer->getEmail() ?></h3>
+                <h5 class="user-name"><?= __('UserName') ?>: <?= $carCustomer->getName() ?></h5>
+                <h6 class="some-id"><?= __('SomeId') ?>: <?= $carCustomer->getSomeId() ?></h6>
+                <h6 class="created-at"><?= __('CreatedAt') ?>: <?= $carCustomer->getCreatedAt() ?></h6>
+                <p class="link">
+                    <?php $href = $block->getCarsUrl($carCustomer->getId()); ?>
+                    <a class="read-more" data-mage-init='{
+                                            "getCustomerCars": {
+                                                "userId":"<?= $carCustomer->getId() ?>",
+                                                "userName":"<?= $carCustomer->getName() ?>",
+                                                "useAjax":"<?= $viewModel ? $viewModel->useAjax() : false ?>"
+                                            }
+                                         }'
+                       href="<?= $href ?>"><?= __('See Customer Cars of %1', $carCustomer->getName()) ?>
+                    </a>
+                </p>
+            </div>
+        <?php endforeach; ?>
+        <div id="cars-container" style="display: none"></div>
+    <?php else: ?>
+        <div class="message">
+            <h1 class="message-error error message"><?= __("There are no customer found.") ?></h1>
+        </div>
+    <?php endif; ?>
+</div>

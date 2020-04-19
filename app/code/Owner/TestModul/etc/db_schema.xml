@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="customer_NewTable" resource="default" engine="innodb"
+           comment="New way of creating table. Declarative">
+        <column xsi:type="smallint" name="entity_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="64" comment="Customer email"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="12" comment="Old Name"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Customer created at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="CUSTOMER_NEWTABLE_EMAIL_NAME">
+            <column name="email"/>
+            <column name="name"/>
+        </constraint>
+    </table>
+    <table name="car_NewTable" resource="default" engine="innodb"
+           comment="New way of creating table. Declarative">
+        <column xsi:type="smallint" name="entity_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="12" comment="Car name"/>
+        <column xsi:type="smallint" name="user_id" padding="6" unsigned="false" nullable="false" comment="User ID"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Car description"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Customer created at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="CAR_NEWTABLE_USER_ID"
+                    table="car_NewTable"
+                    column="user_id"
+                    referenceTable="customer_NewTable"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="CAR_NEWTABLE_NAME">
+            <column name="name"/>
+        </constraint>
+    </table>
+</schema>

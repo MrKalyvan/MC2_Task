@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <referenceContainer name="main">
+            <block
+                    class="Owner\TestModul\Block\Cars"
+                    name="test.cars.block"
+                    template="Owner_TestModul::cars_template.phtml">
+                <arguments>
+                    <argument name="addition_viewModel" xsi:type="object">Owner\TestModul\ViewModel\AdditionInfo</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>

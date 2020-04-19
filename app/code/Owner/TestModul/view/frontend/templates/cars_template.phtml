@@ -1,0 +1,64 @@
+<?php
+
+use Owner\TestModul\Model\CarModel;
+use Owner\TestModul\ViewModel\AdditionInfo;
+
+/**
+ * @var Owner\TestModul\Model\ResourceModel\Car\Collection $cars
+ * @var Owner\TestModul\Block\Cars $block
+ */
+$cars = $block->getCars();
+
+
+/** @var AdditionInfo $viewModel */
+$viewModel = $block->getData('addition_viewModel');
+?>
+
+<?php if($viewModel && $viewModel->getData()): ?>
+    <h1 class="my-block">
+        <?= $viewModel->getData() ?>
+    </h1>
+<?php endif; ?>
+
+    <div class="container">
+        <?php if($cars): ?>
+            <?php foreach ($cars as $item): ?>
+                <?php /** @var CarModel  $item*/ ?>
+
+                <div class="car-id-<?= $item->getId() ?>">
+
+                    <h3 class="entity_id">
+                        <?= __('Entity ID') ?>: <?= $item->getId() ?>
+                    </h3>
+
+                    <h4 class="name">
+                        Name: <?= $item->getName() ?>
+                    </h4>
+
+                    <h4 class="user_id">
+                        User_id: <?= $item->getUserId() ?>
+                    </h4>
+
+                    <h4 class="description">
+                        Description: <?= $item->getDescription() ?>
+                    </h4>
+
+                    <h4 class="price">
+                        Name: <?= $item->getPrice() ?>
+                    </h4>
+
+                    <h5 class="created_at">
+                        Created at: <?= $item->getCreatedAt() ?>
+                    </h5>
+
+                    <p>
+                        <a class="go-back" href="<?= $block->getUrl('route_a') ?>">Go back</a>
+                    </p>
+                </div>
+                <hr><br>
+            <?php endforeach; ?>
+        <?php else: ?>
+        <div><p>List of cars is empty</p></div>
+        <?php endif; ?>
+    </div>
+

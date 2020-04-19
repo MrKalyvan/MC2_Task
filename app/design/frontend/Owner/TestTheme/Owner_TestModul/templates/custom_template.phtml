@@ -1,0 +1,77 @@
+<?php
+
+use Owner\TestModul\Model\CustomerModel;
+use Owner\TestModul\ViewModel\AdditionInfo;
+
+/**
+ * @var Owner\TestModul\Block\Customers $block
+ */
+
+/**
+ * @var Owner\TestModul\Model\ResourceModel\Customer\Collection $customers
+ */
+$customers = $block->getCustomers();
+
+/** Arguments from layout */
+$string = $block->getData('arg_string');
+$array = $block->getData('arg_array');
+
+/** @var AdditionInfo $viewModel */
+$viewModel = $block->getData('addition_viewModel');
+
+?>
+
+
+
+<h1 class="my-block"> <?= __('Argument') ?> <?= $string ?></h1>
+<h1 class="my-block">
+    <p>
+        <?= $array['item1'] ?>
+    </p>
+    <p>
+        <?= $array['item2'] ?>
+    </p>
+</h1>
+
+<?php if($viewModel && $viewModel->getData()): ?>
+<h1 class="my-block">
+    <?= $viewModel->getData() ?>
+</h1>
+<?php endif; ?>
+
+
+    <div class="container">
+        <?php foreach ($customers as $item): ?>
+
+            <?php /** @var CustomerModel  $item*/ ?>
+
+        <div class="customer-id-<?= $item->getId() ?>">
+
+            <h3 class="entity_id">
+                <?= __('Entity ID')?>: <?=$item->getId()?>
+            </h3>
+            <h4 class="email">
+                Email: <?= $item->getEmail() ?>
+            </h4>
+            <h4 class="name">
+                Name: <?= $item->getName() ?>
+            </h4>
+            <h5 class="createdAt">
+                Created at: <?= $item->getCreatedAt() ?>
+            </h5>
+            <?php if($viewModel && $viewModel->useNewField()): ?>
+                <h5 style="font-weight: bold; color: #00ff08 ">
+                    New some field for customer!
+                </h5>
+            <?php endif; ?>
+            <p class="link">
+                <a class="see-more" href="<?= $block->getUrl('route_a/index/cars', ['user_id' => $item->getId()] ) ?>">
+                    See customer cars
+                </a>
+            </p>
+        </div>
+        <hr><br>
+
+        <?php endforeach; ?>
+    </div>
+
