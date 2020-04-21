@@ -13,9 +13,11 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
-use Owner\TaskModul\Api\Data\CarInterface;
+use Owner\TaskModul\Api\Data\EngineInterface;
+use Owner\TaskModul\Api\RepositoryInterface\EngineRepositoryInterface;
+
 use Owner\TaskModul\Model\CarModel;
-use Owner\TaskModul\Model\EngineModel;
+use Owner\TaskModul\Api\Data\CarInterface;
 use Owner\TaskModul\Model\ResourceModel\Car\Collection;
 use Owner\TaskModul\Model\ResourceModel\Car\CollectionFactory;
 use Owner\TaskModul\Api\RepositoryInterface\CarRepositoryInterface;
@@ -37,6 +39,16 @@ class Cars extends Template
      * @var Collection|null
      */
     private $cars;
+
+    /**
+     * @var EngineInterface|null
+     */
+    private $engine;
+
+    /**
+     * @var EngineRepositoryInterface
+     */
+    private $engineRepository;
 
     /**
      * @var CarRepositoryInterface
@@ -64,6 +76,7 @@ class Cars extends Template
      * @param Context $context
      * @param CollectionFactory $carCollectionFactory
      * @param CarRepositoryInterface $carRepository
+     * @param EngineRepositoryInterface $engineRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param SortOrderBuilder $sortOrderBuilder
      * @param AdditionInfo $additionInfo
@@ -73,6 +86,7 @@ class Cars extends Template
         Context $context,
         CollectionFactory $carCollectionFactory,
         CarRepositoryInterface $carRepository,
+        EngineRepositoryInterface $engineRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SortOrderBuilder $sortOrderBuilder,
         AdditionInfo $additionInfo,
@@ -82,6 +96,7 @@ class Cars extends Template
         parent::__construct($context, $data);
         $this->carCollectionFactory = $carCollectionFactory;
         $this->carRepository = $carRepository;
+        $this->engineRepository = $engineRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->sortOrderBuilder = $sortOrderBuilder;
         $this->additionInfo = $additionInfo;
@@ -131,5 +146,18 @@ class Cars extends Template
      */
     public function getCars(){
         return $this->cars;
+    }
+
+    /**
+     * @param int $engine_id
+     * @return EngineInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getById(int $engine_id){
+
+        /** @var EngineInterface $element */
+        $element = $this->engineRepository->getById($engine_id);
+
+        return $element;
     }
 }

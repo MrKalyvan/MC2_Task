@@ -1,12 +1,17 @@
 <?php
 
+use Owner\TaskModul\Block\Cars;
 use Owner\TaskModul\Model\CarModel;
 use Owner\TaskModul\ViewModel\AdditionInfo;
+use Owner\TaskModul\Model\ResourceModel\Car\Collection as CarCollection;
+
+use Owner\TaskModul\Model\EngineModel;
+
 
 
 /**
- * @var Owner\TaskModul\Model\ResourceModel\Car\Collection $cars
- * @var Owner\TaskModul\Block\Cars $block
+ * @var CarCollection $cars
+ * @var Cars $block
  */
 $cars = $block->getCars();
 
@@ -30,7 +35,15 @@ $viewModel = $block->getData('addition_viewModel');
             </a>
         </p>
         <?php foreach ($cars as $item): ?>
-            <?php /** @var CarModel  $item*/ ?>
+
+            <?php
+            /**
+             * @var CarModel  $item
+             * @var EngineModel  $engine
+             */
+            ?>
+
+
             <div class="car-id-<?= $item->getId() ?>">
 
                 <h4 class="name">
@@ -41,8 +54,11 @@ $viewModel = $block->getData('addition_viewModel');
                     <?= __('Model: %1', $item->getModel()) ?>
                 </h4>
 
-                <h4 class="description">
-                    <?= __('Engine: %1', $item->getEngineId() ) ?>
+                <h4 class="description" style="color: red">
+                    <?php
+                        $engine = $block->getById($item->getEngineId());
+                    ?>
+                    <?= __('Engine: %1', $engine->getWin()) ?>
                 </h4>
 
                 <h4 class="price">
