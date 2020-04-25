@@ -104,7 +104,6 @@ class CarRepository implements CarRepositoryInterface
         if (!$car->getId()) {
             throw new NoSuchEntityException(__('Car (`%1`) does not exist.', $carId));
         }
-
         return $car;
     }
 

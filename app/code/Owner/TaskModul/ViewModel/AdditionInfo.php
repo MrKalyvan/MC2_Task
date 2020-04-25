@@ -3,6 +3,9 @@
 
 namespace Owner\TaskModul\ViewModel;
 
+use Owner\TaskModul\Api\Data\CarInterface;
+use Owner\TaskModul\Api\Data\EngineInterface;
+
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
@@ -28,6 +31,33 @@ class AdditionInfo implements ArgumentInterface
         ScopeConfigInterface $scopeConf
     ) {
         $this->scopeConf = $scopeConf;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCarColumn(){
+        $masCar = array(
+            CarInterface::BRAND => 'Brand',
+            CarInterface::MODEL => 'Model',
+            CarInterface::PRICE => 'Price',
+            CarInterface::CREATED_AT => 'Created at'
+        );
+        return $masCar;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getEngineColumn(){
+        $masEngine = array(
+            EngineInterface::MANUFACTURER => 'Manufacturer',
+            EngineInterface::WIN => 'Win',
+            EngineInterface::POWER => 'Power',
+            EngineInterface::VOLUME => 'Volume',
+            EngineInterface::CREATED_AT => 'Created at'
+        );
+        return $masEngine;
     }
 
     /**

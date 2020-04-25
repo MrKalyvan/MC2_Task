@@ -15,6 +15,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
 use Owner\TaskModul\Api\Data\CarInterface;
+use Owner\TaskModul\Model\EngineModel;
 use Owner\TaskModul\Model\ResourceModel\Engine\Collection;
 use Owner\TaskModul\Model\ResourceModel\Engine\CollectionFactory;
 use Owner\TaskModul\Api\RepositoryInterface\EngineRepositoryInterface;
@@ -26,6 +27,9 @@ use Owner\TaskModul\ViewModel\AdditionInfo;
  */
 class Engines extends Template
 {
+    const SORT_TYPE_DEFAULT = 'ASC';
+    const SORT_FIELD_DEFAULT = 'created_at';
+
     /**
      * @var CollectionFactory
      */
@@ -56,10 +60,13 @@ class Engines extends Template
      */
     private $additionInfo;
 
+    protected $_logger;
+
 
     /**
      * Engines constructor.
      * @param Context $context
+     * @param \Psr\Log\LoggerInterface $logger
      * @param CollectionFactory $engineCollectionFactory
      * @param EngineRepositoryInterface $engineRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
@@ -69,6 +76,7 @@ class Engines extends Template
      */
     public function __construct(
         Context $context,
+        \Psr\Log\LoggerInterface $logger,
         CollectionFactory $engineCollectionFactory,
         EngineRepositoryInterface $engineRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -78,6 +86,7 @@ class Engines extends Template
     )
     {
         parent::__construct($context, $data);
+        $this->_logger = $logger;
         $this->engineCollectionFactory = $engineCollectionFactory;
         $this->engineRepository = $engineRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -93,13 +102,24 @@ class Engines extends Template
     {
         if($this->engines === null){
 
-            $sort_type = $this->additionInfo->useSort();
+            $request = $this->getRequest();
+            $sortType = (string)$request->getParam('sortType');
+            $sortField = (string)$request->getParam('sortField');
 
-            /** @var SortOrder $sortOrder */
-            $sortOrder = $this->sortOrderBuilder
-                ->setField(CarInterface::CREATED_AT)
-                ->setDirection($sort_type)
-                ->create();
+            try{
+                /** @var SortOrder $sortOrder */
+                $sortOrder = $this->sortOrderBuilder
+                    ->setField($sortField)
+                    ->setDirection($sortType)
+                    ->create();
+            }
+            catch (\Exception $exception){
+                /** @var SortOrder $sortOrder */
+                $sortOrder = $this->sortOrderBuilder
+                    ->setField(self::SORT_FIELD_DEFAULT)
+                    ->setDirection(self::SORT_TYPE_DEFAULT)
+                    ->create();
+            }
 
             /** @var SearchCriteria|SearchCriteriaInterface $searchCriteria */
             $searchCriteria = $this->searchCriteriaBuilder
@@ -115,6 +135,28 @@ class Engines extends Template
         }
 
         return parent::_prepareLayout();
+    }
+
+//    /**
+//     * @param $key
+//     * @return string
+//     */
+//    public function getFilterParam($key){
+//        return (string)$this->getRequest()->getParam($key);
+//    }
+
+    public function useFilter(){
+        $request = $this->getRequest();
+        $sortType = (string)$request->getParam('sortType');
+        $sortField = (string)$request->getParam('sortField');
+
+        return $this->getUrl(
+          'route_last/index/index',
+          [
+              'sortType' => $sortType,
+              'sortField' => $sortField
+          ]
+        );
     }
 
     /**
