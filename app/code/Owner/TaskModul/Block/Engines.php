@@ -1,7 +1,18 @@
 <?php
 
-
 namespace Owner\TaskModul\Block;
+
+/**
+ * Форматування коду!
+ */
+
+/**
+ * Рекомендації:
+ *
+ * Всі класи/інтерфейси в use повинні бути відсортованими по алфавіту.
+ * Ніяких пустих рядків між use
+ * Всі повні назви класів винести в use
+ */
 
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderBuilder;
@@ -56,9 +67,8 @@ class Engines extends Template
      */
     private $additionInfo;
 
-
     /**
-     * Engines constructor.
+     * Engines constructor. - не критично, але лишнє
      * @param Context $context
      * @param CollectionFactory $engineCollectionFactory
      * @param EngineRepositoryInterface $engineRepository
@@ -75,8 +85,7 @@ class Engines extends Template
         SortOrderBuilder $sortOrderBuilder,
         AdditionInfo $additionInfo,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->engineCollectionFactory = $engineCollectionFactory;
         $this->engineRepository = $engineRepository;
@@ -86,13 +95,23 @@ class Engines extends Template
     }
 
     /**
+     * Рекомендація: використовувати {@inheritdoc} замість повторюваного опису
+     * в Doc блоці де це тільки можливо, якщо метод перезаписує батьківський або
+     * імплементує інтерфейс
+     *
      * @return Template
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _prepareLayout()
     {
-        if($this->engines === null){
-
+        /**
+         * Форматування коду!
+         */
+        if ($this->engines === null) {
+            /**
+             * Рекомендація - не використовувати назви змінних як ось ця $sort_type,
+             * краще використати camel case: $sortType
+             */
             $sort_type = $this->additionInfo->useSort();
 
             /** @var SortOrder $sortOrder */
@@ -108,8 +127,7 @@ class Engines extends Template
 
             /** @var SearchResult $searchResults */
             $searchResults = $this->engines = $this->engineRepository->getList($searchCriteria);
-
-            if($searchResults->getTotalCount() > 0){
+            if ($searchResults->getTotalCount() > 0) {
                 $this->engines = $searchResults->getItems();
             }
         }
@@ -120,7 +138,8 @@ class Engines extends Template
     /**
      * @return Collection|null
      */
-    public function getEngines(){
+    public function getEngines()
+    {
         return $this->engines;
     }
 }

@@ -15,7 +15,6 @@ use Owner\TaskModul\Api\Data\CarInterface;
  */
 interface CarRepositoryInterface
 {
-
     /**
      * Save Car entity
      *

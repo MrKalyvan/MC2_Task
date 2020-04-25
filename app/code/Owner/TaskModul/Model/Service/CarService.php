@@ -1,8 +1,12 @@
 <?php
 
-
 namespace Owner\TaskModul\Model\Service;
 
+/**
+ * Рекомендації:
+ *
+ * Ніяких пустих рядків між use.
+ */
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchResultsInterface;
@@ -12,6 +16,8 @@ use Owner\TaskModul\Api\RepositoryInterface\CarRepositoryInterface;
 use Owner\TaskModul\Api\ServiceInterface\CarServiceInterface;
 
 /**
+ * Я так зрозумів ця модель недороблена
+ *
  * Class CarService
  * @package Owner\TaskModul\Model\Service
  */
@@ -28,25 +34,28 @@ class CarService implements CarServiceInterface
     private $searchCriteriaBuilder;
 
     /**
-     * CarService constructor.
+     * CarService constructor. - ну ти зрозумів
      * @param CarRepositoryInterface $carRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         CarRepositoryInterface $carRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
-    )
-    {
+    ) {
         $this->carRepository = $carRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
     /**
+     * Не @(@inheritDoc), а - (@inheritDoc)
+     *
      * @(@inheritDoc)
      */
     public function getCarList()
     {
-
+        /**
+         * Пустий метод - не є ок
+         */
     }
 
     /**
@@ -54,6 +63,9 @@ class CarService implements CarServiceInterface
      */
     public function getCarListByEngineId($engineId)
     {
+        /**
+         * Пустий метод - не є ок
+         */
     }
 
     /**
@@ -62,8 +74,10 @@ class CarService implements CarServiceInterface
     public function deleteCarById(int $carId)
     {
         // TODO: Implement deleteCarById() method.
+        /**
+         * Пустий метод - не є ок
+         */
     }
-
 
     /**
      * @param int|null $engineId
@@ -73,7 +87,6 @@ class CarService implements CarServiceInterface
     {
         $resultArray = [];
         try {
-
             /** @var SearchCriteria $searchCriteria */
             if ($engineId > 0) {
                 $searchCriteria = $this->searchCriteriaBuilder
@@ -91,7 +104,6 @@ class CarService implements CarServiceInterface
             $searchResults = $this->carRepository->getList($searchCriteria);
             if ($searchResults->getTotalCount() > 0) {
                 foreach ($searchResults->getItems() as $item) {
-
                     /** @var CarInterface $item */
                     $resultArray[] = [
                         'id' => $item->getId(),
@@ -106,9 +118,11 @@ class CarService implements CarServiceInterface
             }
         } catch (\Exception $exception) {
             // logging
+            /**
+             * Залогувати виключення
+             */
         }
 
         return $resultArray;
     }
-
 }

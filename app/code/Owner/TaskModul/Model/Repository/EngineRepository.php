@@ -2,8 +2,20 @@
 
 namespace Owner\TaskModul\Model\Repository;
 
+/**
+ * Рекомендації:
+ *
+ * Всі класи/інтерфейси в use повинні бути відсортованими по алфавіту.
+ */
 use Magento\Framework\Api\SearchResults;
+
+/**
+ * Рекомендації:
+ *
+ * Всі невикористовувані в коді класи повинні бути видаленими з use.
+ */
 use Magento\Framework\Api\SearchResultsInterface;
+
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
 
 use Magento\Framework\Api\SearchCriteriaInterface;

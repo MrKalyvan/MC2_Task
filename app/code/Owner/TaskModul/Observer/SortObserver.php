@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Owner\TaskModul\Observer;
 
 use Magento\Framework\Event\Observer;
@@ -20,18 +19,23 @@ class SortObserver implements ObserverInterface
     private $manager;
 
     /**
-     * SortObserver constructor.
+     * SortObserver constructor. - ну ти зрозумів
      * @param ManagerInterface $manager
      */
     public function __construct(
         ManagerInterface $manager
-    )
-    {
+    ) {
         $this->manager = $manager;
     }
 
+    /**
+     * Що тут ?
+     */
     public function execute(Observer $observer)
     {
         // TODO: Implement execute() method.
+        /**
+         * І яка тут логіка?
+         */
     }
 }

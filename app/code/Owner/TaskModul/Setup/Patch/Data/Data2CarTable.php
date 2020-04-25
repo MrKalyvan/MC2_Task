@@ -1,6 +1,13 @@
 <?php
+
 namespace Owner\TaskModul\Setup\Patch\Data;
 
+/**
+ * Рекомендації:
+ *
+ * Всі класи/інтерфейси в use повинні бути відсортованими по алфавіту.
+ * Всі невикористовувані в коді класи повинні бути видаленими з use.
+ */
 use Magento\Cms\Block\Block;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
@@ -26,15 +33,14 @@ class Data2CarTable implements DataPatchInterface
     private $logger;
 
     /**
-     * DataCarTable constructor.
+     * DataCarTable constructor. - ну ти зрозумів
      * @param ModuleDataSetupInterface $moduleDataSetup
      * @param LoggerInterface $logger
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->logger = $logger;
     }
@@ -90,7 +96,17 @@ class Data2CarTable implements DataPatchInterface
         ];
 
         try {
+            /**
+             * Згідно пункту 7-го - я просив використати свої новостворені:
+             *
+             * 1. Фабрики моделей - для створення моделі та набивки її даними;
+             * 2. Репозиторії - для збереження цих моделей
+             */
             $connection = $this->moduleDataSetup->getConnection();
+
+            /**
+             * Ніякого закоментованого коду в гіті не повинно бути
+             */
 //            $connection->truncateTable(self::MODEL_CAR);
 
             foreach ($data as $row) {

@@ -12,9 +12,25 @@ $engines = $block->getEngines();
 /** @var AdditionInfo $viewModel */
 $viewModel = $block->getData('addition_viewModel');
 
-/** size of display items */
+/**
+ * Рекомендації:
+ *
+ * використовувати camel case -> $numberElement
+ */
+
+/**
+ * Size of display items
+ */
 $number_element = 0;
 
+/**
+ * Рекомендації:
+ *
+ * Відформатувати код нижче:
+ *
+ * 1. Видалити непотрібні пусті рядки
+ * 2. Текст (там де це можливо) огорнути в Phrase об'єкт: __('');
+ */
 ?>
 
 
@@ -25,16 +41,17 @@ $number_element = 0;
     <h1>
         <?= __('List size: %1', $viewModel->getNumberRecord()) ?>
     </h1>
-    <?php if($engines): ?>
+    <?php if ($engines): ?>
         <?php foreach ($engines as $item): ?>
             <?php
-                if($number_element == $viewModel->getNumberRecord()){
+                if ($number_element == $viewModel->getNumberRecord()) {
                     continue;
                 }
+
                 $number_element++;
             ?>
 
-            <?php /** @var EngineModel  $item*/ ?>
+            <?php /** @var EngineModel  $item */ ?>
 
             <div class="car-id-<?= $item->getId() ?>">
 

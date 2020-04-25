@@ -6,7 +6,8 @@ namespace Owner\TaskModul\Api\Data;
  * Interface CarInterface
  * @package Owner\TaskModul\Api\Data
  */
-interface CarInterface{
+interface CarInterface
+{
 
     const ENTITY_ID = 'entity_id';
 
@@ -21,7 +22,6 @@ interface CarInterface{
     const YEARS = 'years';
 
     const CREATED_AT = 'created_at';
-
 
     /**
      * Get entity id
