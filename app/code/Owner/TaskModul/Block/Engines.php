@@ -95,6 +95,14 @@ class Engines extends Template
     }
 
     /**
+     * @return bool|int|null
+     */
+    public function getCacheLifetime()
+    {
+        return null;
+    }
+
+    /**
      * @return Template
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -102,11 +110,11 @@ class Engines extends Template
     {
         if($this->engines === null){
 
-            $request = $this->getRequest();
-            $sortType = (string)$request->getParam('sortType');
-            $sortField = (string)$request->getParam('sortField');
-
             try{
+                $request = $this->getRequest();
+                $sortType = (string)$request->getParam('sortType');
+                $sortField = (string)$request->getParam('sortField');
+
                 /** @var SortOrder $sortOrder */
                 $sortOrder = $this->sortOrderBuilder
                     ->setField($sortField)
@@ -137,24 +145,20 @@ class Engines extends Template
         return parent::_prepareLayout();
     }
 
-//    /**
-//     * @param $key
-//     * @return string
-//     */
-//    public function getFilterParam($key){
-//        return (string)$this->getRequest()->getParam($key);
-//    }
-
     public function useFilter(){
         $request = $this->getRequest();
         $sortType = (string)$request->getParam('sortType');
         $sortField = (string)$request->getParam('sortField');
 
         return $this->getUrl(
-          'route_last/index/index',
+          'route_last',
           [
+              '_current' => true,
+              '_query' =>
+              [
               'sortType' => $sortType,
               'sortField' => $sortField
+              ]
           ]
         );
     }
