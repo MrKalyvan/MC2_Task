@@ -2,11 +2,14 @@
 
 namespace Owner\TaskModul\Api\Data;
 
+use u2flib_server\Error;
+
 /**
  * Interface CarInterface
  * @package Owner\TaskModul\Api\Data
  */
-interface CarInterface{
+interface CarInterface
+{
 
     const ENTITY_ID = 'entity_id';
 
@@ -21,7 +24,6 @@ interface CarInterface{
     const YEARS = 'years';
 
     const CREATED_AT = 'created_at';
-
 
     /**
      * Get entity id
@@ -125,6 +127,7 @@ interface CarInterface{
      *
      * @param string $createdAt
      * @return CarInterface
+     * @throws Error
      */
     public function setCreatedAt(string $createdAt): CarInterface;
 }

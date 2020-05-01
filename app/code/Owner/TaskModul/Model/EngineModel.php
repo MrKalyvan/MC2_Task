@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Owner\TaskModul\Model;
-
 
 use Magento\Framework\Model\AbstractModel;
 use Owner\TaskModul\Api\Data\EngineInterface;
@@ -90,7 +88,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setManufacturer(string $manufacturer) :EngineInterface
+    public function setManufacturer(string $manufacturer): EngineInterface
     {
         return $this->setData(self::MANUFACTURER, $manufacturer);
     }
@@ -98,7 +96,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setWin(string $win) :EngineInterface
+    public function setWin(string $win): EngineInterface
     {
         return $this->setData(self::WIN, $win);
     }
@@ -106,7 +104,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setPower(float $power) :EngineInterface
+    public function setPower(float $power): EngineInterface
     {
         return $this->setData(self::POWER, $power);
     }
@@ -114,7 +112,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setVolume(float $volume) :EngineInterface
+    public function setVolume(float $volume): EngineInterface
     {
         return $this->setData(self::VOLUME, $volume);
     }
@@ -122,7 +120,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setYears(string $years) :EngineInterface
+    public function setYears(string $years): EngineInterface
     {
         return $this->setData(self::YEARS, $years);
     }
@@ -130,7 +128,7 @@ class EngineModel extends AbstractModel implements EngineInterface
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt(string $created_At) :EngineInterface
+    public function setCreatedAt(string $created_At): EngineInterface
     {
         $created_date = new \DateTime($created_At);
         return $this->setData(self::CREATED_AT, $created_date->format('Y-m-d H:i:s'));

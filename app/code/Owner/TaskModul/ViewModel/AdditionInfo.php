@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Owner\TaskModul\ViewModel;
 
 use Owner\TaskModul\Api\Data\CarInterface;
 use Owner\TaskModul\Api\Data\EngineInterface;
-
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
@@ -16,7 +14,9 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 class AdditionInfo implements ArgumentInterface
 {
     const USE_SORT = 'owner_task/settings/use_sort';
+
     const USE_NUMBER_RECORDS = 'owner_task/settings/number_records';
+
     const SCOPE_TYPE = 'store';
 
     /**
@@ -36,7 +36,8 @@ class AdditionInfo implements ArgumentInterface
     /**
      * @return string[]
      */
-    public function getCarColumn(){
+    public function getCarColumn()
+    {
         $masCar = array(
             CarInterface::BRAND => 'Brand',
             CarInterface::MODEL => 'Model',
@@ -49,7 +50,8 @@ class AdditionInfo implements ArgumentInterface
     /**
      * @return string[]
      */
-    public function getEngineColumn(){
+    public function getEngineColumn()
+    {
         $masEngine = array(
             EngineInterface::MANUFACTURER => 'Manufacturer',
             EngineInterface::WIN => 'Win',
@@ -67,15 +69,19 @@ class AdditionInfo implements ArgumentInterface
         $result = 0;
         try {
             $result = (int)$this->scopeConf->getValue(self::USE_NUMBER_RECORDS, self::SCOPE_TYPE);
-        } catch (\Exception $ex) {}
+        } catch (\Exception $ex) {
+
+        }
         return $result;
     }
 
     /**
      * True - use sort ASC. False - use sort DESC
+     *
      * @return string
      */
-    public function useSort(){
+    public function useSort()
+    {
         $result = 'ASC';
         try {
             $result = $this->scopeConf->getValue(self::USE_SORT, self::SCOPE_TYPE);

@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Owner\TaskModul\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Message\Manager;
 use Magento\Framework\Message\ManagerInterface;
 
 /**
@@ -25,8 +23,7 @@ class SizeObserver implements ObserverInterface
      */
     public function __construct(
         ManagerInterface $manager
-    )
-    {
+    ) {
         $this->manager = $manager;
     }
 

@@ -13,24 +13,22 @@ use Magento\Framework\View\Result\Page;
  * Class Car
  * @package Owner\TaskModul\Controller\Index
  */
-class Car extends Action{
+class Car extends Action
+{
 
     /**
      * @var PageFactory
      */
     private $resultPageFactory;
 
-
     /**
-     * Car constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
     }
@@ -38,7 +36,8 @@ class Car extends Action{
     /**
      * @return ResponseInterface|ResultInterface|Page
      */
-    public function execute(){
+    public function execute()
+    {
         $page = $this->resultPageFactory->create();
         return $page;
     }

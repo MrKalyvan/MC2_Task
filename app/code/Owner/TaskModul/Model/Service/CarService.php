@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Owner\TaskModul\Model\Service;
 
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchResultsInterface;
-
 use Owner\TaskModul\Api\Data\CarInterface;
 use Owner\TaskModul\Api\RepositoryInterface\CarRepositoryInterface;
 use Owner\TaskModul\Api\ServiceInterface\CarServiceInterface;
@@ -28,15 +26,13 @@ class CarService implements CarServiceInterface
     private $searchCriteriaBuilder;
 
     /**
-     * CarService constructor.
      * @param CarRepositoryInterface $carRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
     public function __construct(
         CarRepositoryInterface $carRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
-    )
-    {
+    ) {
         $this->carRepository = $carRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }

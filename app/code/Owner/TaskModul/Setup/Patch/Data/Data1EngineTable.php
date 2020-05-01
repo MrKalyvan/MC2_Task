@@ -1,10 +1,9 @@
 <?php
+
 namespace Owner\TaskModul\Setup\Patch\Data;
 
-use Magento\Cms\Block\Block;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Magento\Setup\Exception;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,15 +25,13 @@ class Data1EngineTable implements DataPatchInterface
     private $logger;
 
     /**
-     * DataEngineTable constructor.
      * @param ModuleDataSetupInterface $moduleDataSetup
      * @param LoggerInterface $logger
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->logger = $logger;
     }
@@ -107,8 +104,6 @@ class Data1EngineTable implements DataPatchInterface
 
         try {
             $connection = $this->moduleDataSetup->getConnection();
-//            $connection->truncateTable(self::MODEL_ENGINE);
-
             foreach ($data as $row) {
                 $connection->insert(self::MODEL_ENGINE, $row);
             }

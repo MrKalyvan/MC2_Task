@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Owner\TaskModul\Block;
 
 use Magento\Framework\Api\SortOrder;
@@ -9,20 +8,16 @@ use Magento\Framework\Api\Search\SearchResult;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
-
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-
 use Owner\TaskModul\Api\Data\EngineInterface;
-use Owner\TaskModul\Api\RepositoryInterface\EngineRepositoryInterface;
-
-use Owner\TaskModul\Model\CarModel;
 use Owner\TaskModul\Api\Data\CarInterface;
+use Owner\TaskModul\Api\RepositoryInterface\EngineRepositoryInterface;
+use Owner\TaskModul\Model\CarModel;
 use Owner\TaskModul\Model\ResourceModel\Car\Collection;
 use Owner\TaskModul\Model\ResourceModel\Car\CollectionFactory;
 use Owner\TaskModul\Api\RepositoryInterface\CarRepositoryInterface;
 use Owner\TaskModul\ViewModel\AdditionInfo;
-
 
 /**
  * Class Cars
@@ -70,9 +65,7 @@ class Cars extends Template
      */
     private $additionInfo;
 
-
     /**
-     * Cars constructor.
      * @param Context $context
      * @param CollectionFactory $carCollectionFactory
      * @param CarRepositoryInterface $carRepository
@@ -91,8 +84,7 @@ class Cars extends Template
         SortOrderBuilder $sortOrderBuilder,
         AdditionInfo $additionInfo,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->carCollectionFactory = $carCollectionFactory;
         $this->carRepository = $carRepository;
@@ -108,7 +100,7 @@ class Cars extends Template
      */
     protected function _prepareLayout()
     {
-        if($this->cars === null){
+        if ($this->cars === null) {
             $request = $this->getRequest();
             $engineId = (int)$request->getParam(CarModel::ENGINE_ID);
 
@@ -133,7 +125,7 @@ class Cars extends Template
             /** @var SearchResult $searchResults */
             $searchResults = $this->cars = $this->carRepository->getList($searchCriteria);
 
-            if($searchResults->getTotalCount() > 0){
+            if ($searchResults->getTotalCount() > 0) {
                 $this->cars = $searchResults->getItems();
             }
         }
@@ -144,7 +136,8 @@ class Cars extends Template
     /**
      * @return Collection|null
      */
-    public function getCars(){
+    public function getCars()
+    {
         return $this->cars;
     }
 
@@ -153,7 +146,8 @@ class Cars extends Template
      * @return EngineInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getById(int $engine_id){
+    public function getById(int $engine_id)
+    {
 
         /** @var EngineInterface $element */
         $element = $this->engineRepository->getById($engine_id);

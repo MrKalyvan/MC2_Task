@@ -3,23 +3,16 @@
 namespace Owner\TaskModul\Model\Repository;
 
 use Magento\Framework\Api\SearchResults;
-use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
-
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-
-
 use Owner\TaskModul\Api\RepositoryInterface\CarRepositoryInterface;
-
 use Owner\TaskModul\Api\Data\CarInterface;
 use Owner\TaskModul\Model\CarModel;
 use Owner\TaskModul\Model\CarModelFactory;
-
 use Owner\TaskModul\Model\ResourceModel\Car\Collection;
 use Owner\TaskModul\Model\ResourceModel\Car\CollectionFactory;
 use Owner\TaskModul\Model\ResourceModel\CarResource;
@@ -56,7 +49,6 @@ class CarRepository implements CarRepositoryInterface
     private $collectionProcessor;
 
     /**
-     * CarRepository constructor.
      * @param CarModelFactory $carFactory
      * @param CollectionFactory $carCollectionFactory
      * @param CarResource $carResource
@@ -69,8 +61,7 @@ class CarRepository implements CarRepositoryInterface
         CarResource $carResource,
         SearchResultsInterfaceFactory $searchResultsFactory,
         CollectionProcessorInterface $collectionProcessor
-    )
-    {
+    ) {
         $this->carFactory = $carFactory;
         $this->carCollectionFactory = $carCollectionFactory;
         $this->carResource = $carResource;

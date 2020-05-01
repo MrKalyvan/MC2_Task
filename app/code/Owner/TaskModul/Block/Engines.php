@@ -3,19 +3,15 @@
 
 namespace Owner\TaskModul\Block;
 
+use Psr\Log\LoggerInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\Api\Search\SearchResult;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
-
-
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-
-use Owner\TaskModul\Api\Data\CarInterface;
-use Owner\TaskModul\Model\EngineModel;
 use Owner\TaskModul\Model\ResourceModel\Engine\Collection;
 use Owner\TaskModul\Model\ResourceModel\Engine\CollectionFactory;
 use Owner\TaskModul\Api\RepositoryInterface\EngineRepositoryInterface;
@@ -60,13 +56,14 @@ class Engines extends Template
      */
     private $additionInfo;
 
+    /**
+     * @var LoggerInterface
+     */
     protected $_logger;
 
-
     /**
-     * Engines constructor.
      * @param Context $context
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
      * @param CollectionFactory $engineCollectionFactory
      * @param EngineRepositoryInterface $engineRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
@@ -76,15 +73,14 @@ class Engines extends Template
      */
     public function __construct(
         Context $context,
-        \Psr\Log\LoggerInterface $logger,
+        LoggerInterface $logger,
         CollectionFactory $engineCollectionFactory,
         EngineRepositoryInterface $engineRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SortOrderBuilder $sortOrderBuilder,
         AdditionInfo $additionInfo,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->_logger = $logger;
         $this->engineCollectionFactory = $engineCollectionFactory;
@@ -108,7 +104,7 @@ class Engines extends Template
      */
     protected function _prepareLayout()
     {
-        if($this->engines === null){
+        if ($this->engines === null) {
 
             try{
                 $request = $this->getRequest();
@@ -137,7 +133,7 @@ class Engines extends Template
             /** @var SearchResult $searchResults */
             $searchResults = $this->engines = $this->engineRepository->getList($searchCriteria);
 
-            if($searchResults->getTotalCount() > 0){
+            if ($searchResults->getTotalCount() > 0) {
                 $this->engines = $searchResults->getItems();
             }
         }
@@ -145,28 +141,29 @@ class Engines extends Template
         return parent::_prepareLayout();
     }
 
-    public function useFilter(){
+    public function useFilter()
+    {
         $request = $this->getRequest();
         $sortType = (string)$request->getParam('sortType');
         $sortField = (string)$request->getParam('sortField');
-
         return $this->getUrl(
-          'route_last',
-          [
-              '_current' => true,
-              '_query' =>
-              [
-              'sortType' => $sortType,
-              'sortField' => $sortField
-              ]
-          ]
+            'route_last',
+            [
+                '_current' => true,
+                '_query' =>
+                    [
+                        'sortType' => $sortType,
+                        'sortField' => $sortField
+                    ]
+            ]
         );
     }
 
     /**
      * @return Collection|null
      */
-    public function getEngines(){
+    public function getEngines()
+    {
         return $this->engines;
     }
 }

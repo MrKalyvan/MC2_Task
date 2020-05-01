@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Owner\TaskModul\Model\ResourceModel;
 
 use Owner\TaskModul\Model\CarModel;

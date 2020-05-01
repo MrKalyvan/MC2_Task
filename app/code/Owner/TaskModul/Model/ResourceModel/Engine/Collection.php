@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Owner\TaskModul\Model\ResourceModel\Engine;
-
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Owner\TaskModul\Model\EngineModel;
@@ -25,5 +23,4 @@ class Collection extends AbstractCollection
             EngineResource::class
         );
     }
-
 }
