@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Owner\TaskModul\Block;
 
 use Psr\Log\LoggerInterface;
@@ -23,7 +22,6 @@ use Owner\TaskModul\ViewModel\AdditionInfo;
  */
 class Engines extends Template
 {
-    const SORT_TYPE_DEFAULT = 'ASC';
     const SORT_FIELD_DEFAULT = 'created_at';
 
     /**
@@ -106,7 +104,8 @@ class Engines extends Template
     {
         if ($this->engines === null) {
 
-            try{
+            if($this->additionInfo->getAdminSetting() === 0) {
+                // Custom filter
                 $request = $this->getRequest();
                 $sortType = (string)$request->getParam('sortType');
                 $sortField = (string)$request->getParam('sortField');
@@ -117,11 +116,12 @@ class Engines extends Template
                     ->setDirection($sortType)
                     ->create();
             }
-            catch (\Exception $exception){
+            else {
+                // Admin setting filter
                 /** @var SortOrder $sortOrder */
                 $sortOrder = $this->sortOrderBuilder
                     ->setField(self::SORT_FIELD_DEFAULT)
-                    ->setDirection(self::SORT_TYPE_DEFAULT)
+                    ->setDirection($this->additionInfo->useSort())
                     ->create();
             }
 
@@ -143,6 +143,7 @@ class Engines extends Template
 
     public function useFilter()
     {
+
         $request = $this->getRequest();
         $sortType = (string)$request->getParam('sortType');
         $sortField = (string)$request->getParam('sortField');

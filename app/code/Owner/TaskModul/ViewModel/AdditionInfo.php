@@ -17,6 +17,8 @@ class AdditionInfo implements ArgumentInterface
 
     const USE_NUMBER_RECORDS = 'owner_task/settings/number_records';
 
+    const USE_ADMIN_SORT_SETTING = 'owner_task/settings/use_admin_setting';
+
     const SCOPE_TYPE = 'store';
 
     /**
@@ -63,9 +65,28 @@ class AdditionInfo implements ArgumentInterface
     }
 
     /**
+     * Use or not sort setting from admin panel
+     *
      * @return int
      */
-    public function getNumberRecord(){
+    public function getAdminSetting()
+    {
+        $result = 0;
+        try {
+            $result = (int)$this->scopeConf->getValue(self::USE_ADMIN_SORT_SETTING, self::SCOPE_TYPE);
+        } catch (\Exception $exception) {
+
+        }
+        return $result;
+    }
+
+    /**
+     * Count of displayed item
+     *
+     * @return int
+     */
+    public function getNumberRecord()
+    {
         $result = 0;
         try {
             $result = (int)$this->scopeConf->getValue(self::USE_NUMBER_RECORDS, self::SCOPE_TYPE);
