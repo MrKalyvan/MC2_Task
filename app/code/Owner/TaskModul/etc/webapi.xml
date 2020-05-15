@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/test/engines/list" method="GET">
+        <service class="Owner\TaskModul\Api\ServiceInterface\EngineServiceInterface" method="getEngineList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/test/engines/find/:engineId" method="GET">
+        <service class="Owner\TaskModul\Api\ServiceInterface\EngineServiceInterface" method="getEngineById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/test/engines/delete/:engineId" method="DELETE">
+        <service class="Owner\TaskModul\Api\ServiceInterface\EngineServiceInterface" method="deleteEngineById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

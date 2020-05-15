@@ -48,7 +48,7 @@ class CarService implements CarServiceInterface
     /**
      * @(@inheritDoc)
      */
-    public function getCarListByEngineId($engineId)
+    public function getCarById($engineId)
     {
     }
 

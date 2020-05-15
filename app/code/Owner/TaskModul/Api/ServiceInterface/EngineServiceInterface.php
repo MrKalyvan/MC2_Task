@@ -6,22 +6,22 @@ namespace Owner\TaskModul\Api\ServiceInterface;
  * Interface CarServiceInterface
  * @package Owner\TaskModul\Api\ServiceInterface
  */
-interface CarServiceInterface
+interface EngineServiceInterface
 {
     /**
      * @return mixed
      */
-    public function getCarList();
+    public function getEngineList();
 
     /**
      * @param int $engineId
      * @return mixed
      */
-    public function getCarById($engineId);
+    public function getEngineById(int $engineId);
 
     /**
-     * @param int $carId
+     * @param int $engineId
      * @return mixed
      */
-    public function deleteCarById(int $carId);
+    public function deleteEngineById(int $engineId);
 }
