@@ -18,4 +18,28 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+    <route url="/V1/test/cars/list" method="GET">
+        <service class="Owner\TaskModul\Api\ServiceInterface\CarServiceInterface" method="getCarList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/test/cars/find/:carId" method="GET">
+        <service class="Owner\TaskModul\Api\ServiceInterface\CarServiceInterface" method="getCarById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/test/cars/delete/:carId" method="DELETE">
+        <service class="Owner\TaskModul\Api\ServiceInterface\CarServiceInterface" method="deleteCarById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/test/cars/save" method="POST">
+        <service class="Owner\TaskModul\Api\ServiceInterface\CarServiceInterface" method="saveOrUpdate"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
 </routes>
