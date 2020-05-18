@@ -15,64 +15,81 @@ $cars = $block->getCars();
 /** @var AdditionInfo $viewModel */
 $viewModel = $block->getData('addition_viewModel');
 
+/** size of display items */
+$number_element = 0;
 ?>
 <div class="container">
     <h1>
         <?= __('Sorting type: %1', $viewModel->useSort()) ?>
     </h1>
-    <?php if($cars): ?>
-        <p class="link">
-            <a class="go-back"
-               href="<?= $block->getUrl('route_last') ?>">
-                <?= __('Go back') ?>
-            </a>
-        </p>
-        <?php foreach ($cars as $item): ?>
-            <?php
-            /**
-             * @var CarModel  $item
-             * @var EngineModel  $engine
-             */
-            ?>
-            <div class="car-id-<?= $item->getId() ?>">
-                <h4 class="name">
-                    <?= __('Brand: %1', $item->getBrand()) ?>
-                </h4>
-                <h4 class="user_id">
-                    <?= __('Model: %1', $item->getModel()) ?>
-                </h4>
-                <h4 class="description" style="color: red">
+
+    <table>
+        <thead>
+        <tr class="border-style thead-style">
+            <th scope="col"><?=__('Entity id')?></th>
+            <th scope="col"><?=__('Brand')?></th>
+            <th scope="col"><?=__('Model')?></th>
+            <th scope="col"><?=__('Engine')?></th>
+            <th scope="col"><?=__('Price')?></th>
+            <th scope="col"><?=__('Years')?></th>
+            <th scope="col"><?=__('Created at')?></th>
+            <th scope="col"><?=__('Actions')?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if($cars): ?>
+            <p class="link" style="margin-bottom: 15px;">
+                <a class="go-back"
+                   href="<?= $block->getUrl('route_last') ?>">
+                    <?= __('Go back') ?>
+                </a>
+            </p>
+            <?php foreach ($cars as $item): ?>
+                <?php
+                if($viewModel->getAdminSetting() === 1 && $number_element == $viewModel->getNumberRecord()){
+                    continue;
+                }
+                $number_element++;
+                ?>
+                <?php
+                /**
+                 * @var CarModel  $item
+                 * @var EngineModel  $engine
+                 */
+                ?>
+                <tr class="engine-row border-style" id="carId-<?=$item->getId()?>">
+                    <th><?=$item->getId()?></th>
+                    <th><?=$item->getBrand()?></th>
+                    <th><?=$item->getModel()?></th>
                     <?php
-                        try {
-                            $engine = $block->getById($item->getEngineId());
-                        } catch (\Exception $exception) {
-                            __('There are some error with engines!');
-                        }
+                    try {
+                        $engine = $block->getById($item->getEngineId());
+                    } catch (\Exception $exception) {
+                        __('There are some error with engines!');
+                    }
                     ?>
-                    <?= __('Engine: %1', $engine->getWin()) ?>
-                </h4>
-                <h4 class="price">
-                    <?= __('Price: %1', $item->getPrice())  ?>
-                </h4>
-                <h4 class="price">
-                    <?= __('Years: %1', $item->getYears())  ?>
-                </h4>
-                <h5 class="created_at">
-                    <?= __('Created at: %1', $item->getCreatedAt()) ?>
-                </h5>
+                    <th style="color: red"><?=$engine->getWin()?></th>
+                    <th><?=$item->getPrice()?></th>
+                    <th><?=$item->getYears()?></th>
+                    <th><?=$item->getCreatedAt()?></th>
+                    <th>
+                        <a class="engine-delete" style="margin-right: 15px; font-size: large; color: red"
+                           href="">X</a>
+                    </th>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div>
+                <p><?= __('List of cars is empty') ?>/p>
             </div>
-            <hr><br>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div>
-            <p><?= __('List of cars is empty') ?>/p>
-        </div>
-        <p class="link">
-            <a class="go-back"
-               href="<?= $block->getUrl('route_last') ?>">
-                <?= __('Go back') ?>
-            </a>
-        </p>
-    <?php endif; ?>
+            <p class="link">
+                <a class="go-back"
+                   href="<?= $block->getUrl('route_last') ?>">
+                    <?= __('Go back') ?>
+                </a>
+            </p>
+        <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 

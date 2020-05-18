@@ -154,4 +154,8 @@ class Cars extends Template
 
         return $element;
     }
+
+    public function deleteById(int $engineId)
+    {
+    }
 }
