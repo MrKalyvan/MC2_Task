@@ -90,7 +90,6 @@ class EngineService implements EngineServiceInterface
         } catch (\Exception $exception) {
             return sprintf('Could not get engine, error: %s', $exception->getMessage());
         }
-
         return $result;
     }
 
@@ -108,4 +107,21 @@ class EngineService implements EngineServiceInterface
         return $message;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function saveOrUpdate(EngineInterface $engine)
+    {
+        try {
+            $newEngine = $this->engineRepository->save($engine);
+            if ($engine->getId() > 0) {
+                $message = sprintf('Success, engine has been found and updated, id is: %s', $newEngine->getId());
+            } else {
+                $message = sprintf('Success, new engine has been created, id is: %s', $newEngine->getId());
+            }
+        } catch (\Exception $exception) {
+            $message = sprintf('Could not save engine: %s', $exception->getMessage());
+        }
+        return $message;
+    }
 }

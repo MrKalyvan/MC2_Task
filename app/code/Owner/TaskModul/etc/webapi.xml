@@ -18,6 +18,12 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+    <route url="/V1/test/engines/save" method="POST">
+        <service class="Owner\TaskModul\Api\ServiceInterface\EngineServiceInterface" method="saveOrUpdate"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
     <route url="/V1/test/cars/list" method="GET">
         <service class="Owner\TaskModul\Api\ServiceInterface\CarServiceInterface" method="getCarList"/>
         <resources>
