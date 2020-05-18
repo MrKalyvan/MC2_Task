@@ -38,6 +38,7 @@ class Car extends Action
      */
     public function execute()
     {
+
         $page = $this->resultPageFactory->create();
         return $page;
     }

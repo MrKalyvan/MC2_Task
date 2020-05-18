@@ -48,8 +48,9 @@ class EngineRepository implements EngineRepositoryInterface
      */
     private $collectionProcessor;
 
+    private $logger;
+
     /**
-     * EngineRepository constructor.
      * @param EngineResource $engineResource
      * @param EngineModelFactory $engineFactory
      * @param CollectionFactory $engineCollectionFactory
@@ -61,13 +62,15 @@ class EngineRepository implements EngineRepositoryInterface
         EngineModelFactory $engineFactory,
         CollectionFactory $engineCollectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory,
-        CollectionProcessorInterface $collectionProcessor
+        CollectionProcessorInterface $collectionProcessor,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->engineFactory = $engineFactory;
         $this->engineCollectionFactory = $engineCollectionFactory;
         $this->engineResource = $engineResource;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
+        $this->logger = $logger;
     }
 
     /**
@@ -94,9 +97,8 @@ class EngineRepository implements EngineRepositoryInterface
         $engine = $this->engineFactory->create();
         $engine->load($engineId);
         if (!$engine->getId()) {
-            throw new NoSuchEntityException(__('Car (`%1`) does not exist.', $engineId));
+            throw new NoSuchEntityException(__('Engine (`%1`) does not exist.', $engineId));
         }
-
         return $engine;
     }
 
@@ -135,8 +137,13 @@ class EngineRepository implements EngineRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function deleteById(int $engineId): bool
+    public function deleteById(int $engineId)
     {
-        return $this->delete($this->getById($engineId));
+        try {
+            $this->delete($this->getById($engineId));
+            return 'Engine was deleted successfully!';
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

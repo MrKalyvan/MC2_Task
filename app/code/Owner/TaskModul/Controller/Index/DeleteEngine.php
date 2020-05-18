@@ -10,10 +10,10 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\Page;
 
 /**
- * Class Engines
+ * Class DeleteEngine
  * @package Owner\TaskModul\Controller\Index
  */
-class Index extends Action
+class DeleteEngine extends Action
 {
 
     /**

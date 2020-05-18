@@ -23,7 +23,7 @@ $viewModel = $block->getData('addition_viewModel');
     <?php if($cars): ?>
         <p class="link">
             <a class="go-back"
-               href="<?= $block->getUrl('route_last') ?>">
+               href="<?= $block->getUrl('route_last', ['_current' => true]) ?>">
                 <?= __('Go back') ?>
             </a>
         </p>

@@ -2,7 +2,6 @@
 
 namespace Owner\TaskModul\Block;
 
-use Psr\Log\LoggerInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\Api\Search\SearchResult;
@@ -55,13 +54,7 @@ class Engines extends Template
     private $additionInfo;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $_logger;
-
-    /**
      * @param Context $context
-     * @param LoggerInterface $logger
      * @param CollectionFactory $engineCollectionFactory
      * @param EngineRepositoryInterface $engineRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
@@ -71,7 +64,6 @@ class Engines extends Template
      */
     public function __construct(
         Context $context,
-        LoggerInterface $logger,
         CollectionFactory $engineCollectionFactory,
         EngineRepositoryInterface $engineRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -80,7 +72,6 @@ class Engines extends Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->_logger = $logger;
         $this->engineCollectionFactory = $engineCollectionFactory;
         $this->engineRepository = $engineRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -141,9 +132,13 @@ class Engines extends Template
         return parent::_prepareLayout();
     }
 
+    /**
+     * Use custom filter on page
+     *
+     * @return string
+     */
     public function useFilter()
     {
-
         $request = $this->getRequest();
         $sortType = (string)$request->getParam('sortType');
         $sortField = (string)$request->getParam('sortField');
@@ -166,5 +161,14 @@ class Engines extends Template
     public function getEngines()
     {
         return $this->engines;
+    }
+
+    /**
+     * @param int $engineId
+     * @return string
+     */
+    public function deleteById(int $engineId)
+    {
+        return $this->engineRepository->deleteById($engineId);
     }
 }

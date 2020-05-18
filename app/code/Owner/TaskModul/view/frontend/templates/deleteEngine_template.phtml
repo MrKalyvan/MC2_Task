@@ -1,0 +1,20 @@
+<?php
+
+
+$request = $this->getRequest();
+$engineId = (int)$request->getParam('engine_id');
+
+
+/**
+ * @var Owner\TaskModul\Block\Engines $block
+ */
+
+?>
+<div>
+    <h1 style="color: green;">
+        <?=__($block->deleteById($engineId))?>
+    </h1>
+    <a href="<?=$block->getUrl('route_last', ['_current' => true])?>">
+        <?=__('Return to engines list')?>
+    </a>
+</div>

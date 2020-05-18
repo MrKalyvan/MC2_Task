@@ -88,7 +88,7 @@ class EngineService implements EngineServiceInterface
                 ];
             }
         } catch (\Exception $exception) {
-            // logging
+
         }
 
         return $result;
