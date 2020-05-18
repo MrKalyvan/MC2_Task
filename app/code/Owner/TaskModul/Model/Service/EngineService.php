@@ -88,7 +88,7 @@ class EngineService implements EngineServiceInterface
                 ];
             }
         } catch (\Exception $exception) {
-
+            return sprintf('Could not get engine, error: %s', $exception->getMessage());
         }
 
         return $result;

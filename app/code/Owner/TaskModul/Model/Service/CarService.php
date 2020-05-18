@@ -88,7 +88,7 @@ class CarService implements CarServiceInterface
                 ];
             }
         } catch (\Exception $exception) {
-            return sprintf('Could not find car (%s)', $carId);
+            return sprintf('Could not get car, error: %s', $exception->getMessage());
         }
         if(empty($result)){
             return sprintf('Could not find car (%s)', $carId);
