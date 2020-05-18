@@ -69,7 +69,13 @@ $number_element = 0;
                      */
                     ?>
                 <tr class="engine-row border-style" id="carId-<?=$item->getId()?>"
-                    onclick=" document.location.href  = '<?= $block->getUrl('route_last/index/car', ['engine_id' => $item->getId()])?>' ">
+                    onclick=" document.location.href  = '<?= $block->getUrl('route_last/index/car',
+                        ['_current' => true,
+                        '_query' =>
+                            [
+                                'engine_id' => $item->getId()
+                            ]
+                        ])?>' ">
                     <th><?=$item->getId()?></th>
                     <th><?=$item->getManufacturer()?></th>
                     <th><?=$item->getWin()?></th>
@@ -80,7 +86,13 @@ $number_element = 0;
                     <th>
 <!--                        <a class="engine-edit" style="margin-right: 15px; font-size: large; color: darkorange">./</a>-->
                         <a class="engine-delete" style="margin-right: 15px; font-size: large; color: red"
-                            href="<?=$block->getUrl('route_last/index/deleteengine', ['engine_id' => $item->getId()])?>">X</a>
+                            href="<?=$block->getUrl('route_last/index/deleteengine',
+                                ['_current' => true,
+                                '_query' =>
+                                    [
+                                        'engine_id' => $item->getId()
+                                    ]
+                                ])?>">X</a>
 
                     </th>
                 </tr>
