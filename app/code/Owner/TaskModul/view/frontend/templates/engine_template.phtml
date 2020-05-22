@@ -41,6 +41,8 @@ $number_element = 0;
             </form>
         </div>
     </div>
+
+    <?php if($engines): ?>
         <table>
             <thead>
                 <tr class="border-style thead-style">
@@ -55,7 +57,6 @@ $number_element = 0;
                 </tr>
             </thead>
             <tbody>
-            <?php if($engines): ?>
                 <?php foreach ($engines as $item): ?>
                     <?php
                     if($viewModel->getAdminSetting() === 1 && $number_element == $viewModel->getNumberRecord()){
@@ -90,11 +91,14 @@ $number_element = 0;
                     </th>
                 </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <div><p> <?= __('List of engines is empty') ?></p></div>
-            <?php endif; ?>
             </tbody>
         </table>
-
+    <?php else: ?>
+        <div>
+            <h1 style="color: red;">
+                <?= __('List of engines is empty') ?>
+            </h1>
+        </div>
+    <?php endif; ?>
 </div>
 

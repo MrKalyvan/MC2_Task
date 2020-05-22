@@ -23,10 +23,8 @@ $request = $this->getRequest();
 $engineId = (int)$request->getParam('engine_id');
 ?>
 <div class="container">
-    <h1>
-        <?= __('Sorting type: %1', $viewModel->useSort()) ?>
-    </h1>
-    <table>
+    <?php if($cars !== null): ?>
+        <table>
         <thead>
         <tr class="border-style thead-style">
             <th scope="col"><?=__('Entity id')?></th>
@@ -40,7 +38,6 @@ $engineId = (int)$request->getParam('engine_id');
         </tr>
         </thead>
         <tbody>
-        <?php if($cars): ?>
             <p class="link" style="margin-bottom: 15px;">
                 <a class="go-back"
                    href="<?= $block->getUrl('route_last') ?>">
@@ -85,18 +82,20 @@ $engineId = (int)$request->getParam('engine_id');
                     </th>
                 </tr>
             <?php endforeach; ?>
-        <?php else: ?>
-            <div>
-                <p><?= __('List of cars is empty') ?>/p>
-            </div>
-            <p class="link">
-                <a class="go-back"
-                   href="<?= $block->getUrl('route_last') ?>">
-                    <?= __('Go back') ?>
-                </a>
-            </p>
-        <?php endif; ?>
         </tbody>
     </table>
+    <?php else: ?>
+        <div>
+            <h1 style="color: red;">
+                <?= __('List of cars is empty') ?>
+            </h1>
+        </div>
+        <p class="link">
+            <a class="go-back"
+               href="<?= $block->getUrl('route_last') ?>">
+                <?= __('Go back') ?>
+            </a>
+        </p>
+    <?php endif; ?>
 </div>
 

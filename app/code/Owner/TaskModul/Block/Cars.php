@@ -128,6 +128,9 @@ class Cars extends Template
             if ($searchResults->getTotalCount() > 0) {
                 $this->cars = $searchResults->getItems();
             }
+            else {
+                $this->cars = null;
+            }
         }
 
         return parent::_prepareLayout();
