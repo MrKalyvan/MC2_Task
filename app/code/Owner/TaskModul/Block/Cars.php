@@ -155,7 +155,12 @@ class Cars extends Template
         return $element;
     }
 
-    public function deleteById(int $engineId)
+    /**
+     * @param int $carId
+     * @return mixed
+     */
+    public function deleteById(int $carId)
     {
+        return $this->carRepository->deleteById($carId);
     }
 }

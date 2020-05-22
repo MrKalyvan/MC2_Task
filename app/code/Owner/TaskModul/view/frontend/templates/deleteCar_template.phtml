@@ -1,0 +1,19 @@
+<?php
+
+$request = $this->getRequest();
+$carId = (int)$request->getParam('carId');
+$engineId = (int)$request->getParam('engineId');
+?>
+<div>
+    <h1 style="color: green;">
+        <?php
+        /**
+         * @var Owner\TaskModul\Block\Cars $block
+         */
+        ?>
+        <?=__($block->deleteById($carId))?>
+    </h1>
+    <a href="<?=$block->getUrl('route_last/index/car', ['engine_id' => $engineId])?>">
+        <?=__('Return to car list')?>
+    </a>
+</div>

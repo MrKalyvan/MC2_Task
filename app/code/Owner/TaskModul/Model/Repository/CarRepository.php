@@ -133,8 +133,13 @@ class CarRepository implements CarRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function deleteById(int $carId): bool
+    public function deleteById(int $carId)
     {
-        return $this->delete($this->getById($carId));
+        try {
+            $this->delete($this->getById($carId));
+            return 'Car was deleted successfully!';
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

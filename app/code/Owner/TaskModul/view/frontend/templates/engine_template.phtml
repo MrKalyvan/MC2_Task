@@ -70,16 +70,11 @@ $number_element = 0;
                     ?>
                 <tr class="engine-row border-style" id="carId-<?=$item->getId()?>"
                     onclick=" document.location.href  = '<?= $block->getUrl('route_last/index/car',
-                        ['_current' => true,
-                        '_query' =>
-                            [
-                                'engine_id' => $item->getId()
-                            ]
-                        ])?>' ">
+                        ['engine_id' => $item->getId()])?>' ">
                     <th><?=$item->getId()?></th>
                     <th><?=$item->getManufacturer()?></th>
                     <th><?=$item->getWin()?></th>
-                    <th><?=$item->getPower()?></th  >
+                    <th><?=$item->getPower()?></th>
                     <th><?=$item->getVolume()?></th>
                     <th><?=$item->getYears()?></th>
                     <th><?=$item->getCreatedAt()?></th>

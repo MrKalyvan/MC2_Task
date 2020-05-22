@@ -17,12 +17,15 @@ $viewModel = $block->getData('addition_viewModel');
 
 /** size of display items */
 $number_element = 0;
+
+/** $engineId for return to car list of engine */
+$request = $this->getRequest();
+$engineId = (int)$request->getParam('engine_id');
 ?>
 <div class="container">
     <h1>
         <?= __('Sorting type: %1', $viewModel->useSort()) ?>
     </h1>
-
     <table>
         <thead>
         <tr class="border-style thead-style">
@@ -74,7 +77,11 @@ $number_element = 0;
                     <th><?=$item->getCreatedAt()?></th>
                     <th>
                         <a class="engine-delete" style="margin-right: 15px; font-size: large; color: red"
-                           href="">X</a>
+                           href="<?=$block->getUrl('route_last/index/deletecar',
+                               [
+                                   'carId' => $item->getId(),
+                                   'engineId' => $engineId
+                               ])?>">X</a>
                     </th>
                 </tr>
             <?php endforeach; ?>
