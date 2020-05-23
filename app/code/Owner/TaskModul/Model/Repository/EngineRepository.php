@@ -16,6 +16,7 @@ use Owner\TaskModul\Model\EngineModelFactory;
 use Owner\TaskModul\Model\ResourceModel\Engine\Collection;
 use Owner\TaskModul\Model\ResourceModel\Engine\CollectionFactory;
 use Owner\TaskModul\Model\ResourceModel\EngineResource;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class EngineRepository
@@ -48,6 +49,9 @@ class EngineRepository implements EngineRepositoryInterface
      */
     private $collectionProcessor;
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     /**
@@ -63,7 +67,7 @@ class EngineRepository implements EngineRepositoryInterface
         CollectionFactory $engineCollectionFactory,
         SearchResultsInterfaceFactory $searchResultsFactory,
         CollectionProcessorInterface $collectionProcessor,
-        \Psr\Log\LoggerInterface $logger
+        LoggerInterface $logger
     ) {
         $this->engineFactory = $engineFactory;
         $this->engineCollectionFactory = $engineCollectionFactory;
@@ -99,6 +103,7 @@ class EngineRepository implements EngineRepositoryInterface
         if (!$engine->getId()) {
             throw new NoSuchEntityException(__('Engine (`%1`) does not exist.', $engineId));
         }
+
         return $engine;
     }
 
@@ -131,6 +136,7 @@ class EngineRepository implements EngineRepositoryInterface
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__('Could not delete row. `%1` ',$exception->getMessage()));
         }
+
         return true;
     }
 

@@ -23,18 +23,18 @@ $request = $this->getRequest();
 $engineId = (int)$request->getParam('engine_id');
 ?>
 <div class="container">
-    <?php if($cars !== null): ?>
+    <?php if ($cars !== null): ?>
         <table>
         <thead>
         <tr class="border-style thead-style">
-            <th scope="col"><?=__('Entity id')?></th>
-            <th scope="col"><?=__('Brand')?></th>
-            <th scope="col"><?=__('Model')?></th>
-            <th scope="col"><?=__('Engine')?></th>
-            <th scope="col"><?=__('Price')?></th>
-            <th scope="col"><?=__('Years')?></th>
-            <th scope="col"><?=__('Created at')?></th>
-            <th scope="col"><?=__('Actions')?></th>
+            <th scope="col"><?= __('Entity id') ?></th>
+            <th scope="col"><?= __('Brand') ?></th>
+            <th scope="col"><?= __('Model') ?></th>
+            <th scope="col"><?= __('Engine') ?></th>
+            <th scope="col"><?= __('Price') ?></th>
+            <th scope="col"><?= __('Years') ?></th>
+            <th scope="col"><?= __('Created at') ?></th>
+            <th scope="col"><?= __('Actions') ?></th>
         </tr>
         </thead>
         <tbody>
@@ -46,39 +46,43 @@ $engineId = (int)$request->getParam('engine_id');
             </p>
             <?php foreach ($cars as $item): ?>
                 <?php
-                if($viewModel->getAdminSetting() === 1 && $number_element == $viewModel->getNumberRecord()){
+
+                if ($viewModel->getAdminSetting() === 1 &&
+                    $number_element == $viewModel->getNumberRecord()
+                ) {
                     continue;
                 }
+
                 $number_element++;
-                ?>
-                <?php
+
                 /**
-                 * @var CarModel  $item
-                 * @var EngineModel  $engine
+                 * @var CarModel $item
+                 * @var EngineModel $engine
                  */
                 ?>
-                <tr class="engine-row border-style" id="carId-<?=$item->getId()?>">
-                    <th><?=$item->getId()?></th>
-                    <th><?=$item->getBrand()?></th>
-                    <th><?=$item->getModel()?></th>
-                    <?php
-                    try {
-                        $engine = $block->getById($item->getEngineId());
-                    } catch (\Exception $exception) {
-                        __('There are some error with engines!');
-                    }
-                    ?>
-                    <th style="color: red"><?=$engine->getWin()?></th>
-                    <th><?=$item->getPrice()?></th>
-                    <th><?=$item->getYears()?></th>
-                    <th><?=$item->getCreatedAt()?></th>
+                <tr class="engine-row border-style" id="carId-<?= $item->getId() ?>">
+                    <th><?= $item->getId() ?></th>
+                    <th><?= $item->getBrand() ?></th>
+                    <th><?= $item->getModel() ?></th>
+
+                    <?php $engine = $block->getById($item->getEngineId()); ?>
+
+                    <?php if ($engine && $engine->getId()): ?>
+                        <th style="color: red"><?= $engine->getWin() ?></th>
+                    <?php else: ?>
+                        <th style="color: red"><?= __('There are some error with engines!') ?></th>
+                    <?php endif; ?>
+
+                    <th><?= $item->getPrice() ?></th>
+                    <th><?= $item->getYears() ?></th>
+                    <th><?= $item->getCreatedAt() ?></th>
                     <th>
                         <a class="engine-delete" style="margin-right: 15px; font-size: large; color: red"
-                           href="<?=$block->getUrl('route_last/index/deletecar',
+                           href="<?= $block->getUrl('route_last/index/deletecar',
                                [
                                    'carId' => $item->getId(),
                                    'engineId' => $engineId
-                               ])?>">X</a>
+                               ]) ?>">X</a>
                     </th>
                 </tr>
             <?php endforeach; ?>

@@ -2,8 +2,6 @@
 
 namespace Owner\TaskModul\Api\Data;
 
-use u2flib_server\Error;
-
 /**
  * Interface CarInterface
  * @package Owner\TaskModul\Api\Data
@@ -127,7 +125,7 @@ interface CarInterface
      *
      * @param string $createdAt
      * @return CarInterface
-     * @throws Error
+     * @throws \Exception
      */
     public function setCreatedAt(string $createdAt): CarInterface;
 }
