@@ -44,10 +44,11 @@ class CarService implements CarServiceInterface
     {
         /** @var SearchCriteria $searchCriteria */
         $searchCriteria = $this->searchCriteriaBuilder->create();
+
         /** @var SearchResultsInterface $searchResult */
         $searchResult = $this->carRepository->getList($searchCriteria);
         $result = [];
-        if($searchResult->getTotalCount() > 0) {
+        if ($searchResult->getTotalCount() > 0) {
             foreach ($searchResult->getItems() as $item) {
                 /** @var CarInterface $item */
                 $result[] = [
@@ -61,6 +62,7 @@ class CarService implements CarServiceInterface
                 ];
             }
         }
+
         return $result;
     }
 
@@ -73,6 +75,7 @@ class CarService implements CarServiceInterface
         if (empty($carId)) {
             return 'empty param';
         }
+
         try {
             /** @var CarInterface $item */
             $item = $this->carRepository->getById($carId);
@@ -90,9 +93,11 @@ class CarService implements CarServiceInterface
         } catch (\Exception $exception) {
             return sprintf('Could not get car, error: %s', $exception->getMessage());
         }
-        if(empty($result)){
+
+        if (empty($result)) {
             return sprintf('Could not find car (%s)', $carId);
         }
+
         return $result;
     }
 
@@ -107,6 +112,7 @@ class CarService implements CarServiceInterface
         } catch (\Exception $exception) {
             $message = sprintf('Could not delete engine (%s)', $carId);
         }
+
         return $message;
     }
 
